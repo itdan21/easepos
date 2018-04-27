@@ -53,7 +53,7 @@ namespace SalesAndInventory.Controllers
                                     {
                                         p,
                                         s
-                                    })
+                                    }).Where(i => i.s.Count() == 0).AsEnumerable()
                                     .Select(i => new ProductListViewModel.ProductInfo
                                     {
                                         Id = i.p.Id,
@@ -133,6 +133,7 @@ namespace SalesAndInventory.Controllers
                             .GroupJoin(db.StockByItems, pi => pi.Id, sp => sp.PurchaseItemId, (pi, sp) => new
                             {
                                 Id = pi.Id,
+                                ItemId = sp.Select(i => i.Id).FirstOrDefault(),
                                 Name = pi.Name,
                                 Model = pi.Model,
                                 Brand = pi.Brand,
@@ -140,11 +141,14 @@ namespace SalesAndInventory.Controllers
                                 QtyByPck = pi.QtyByPcks,
                                 QtyByPc = pi.QtyByPcs,
                                 SellingPrice = sp.Select(i => i.SellingPrice).FirstOrDefault(),
+                                UnitPrice = pi.UnitPrice,
+                                SRP = pi.Srp,
                                 TotalItemStocks = sp
                             }).AsEnumerable()
                             .Select(i => new
                             {
                                 Id = i.Id,
+                                ItemId = i.ItemId,
                                 Name = i.Name,
                                 Model = i.Model,
                                 Brand = i.Brand,
@@ -166,7 +170,7 @@ namespace SalesAndInventory.Controllers
                                     {
                                         p,
                                         s
-                                    })
+                                    }).Where(i => i.s.Count() == 0).AsEnumerable()
                                     .Select(i => new
                                     {
                                         Id = i.p.Id,
@@ -245,5 +249,15 @@ namespace SalesAndInventory.Controllers
         //        return Json(false, JsonRequestBehavior.AllowGet);
         //    }
         //}
+
+        public JsonResult GetItemStocks(int purchaseId)
+        {
+            //var model = db.StockByItems.Where(i => i.PurchaseItemId == purchaseId)
+            //    .Join(db.PurchaseItems, si => si.PurchaseItemId)
+            //    .ToList();
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<parameters>
-  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=SQL5017.site4now.net;Initial Catalog=DB_A10CEA_pos;User Id=DB_A10CEA_pos_admin;Password=ssh.com.ph21;" tags="SqlConnectionString">
-    <parameterEntry kind="XmlFile" scope="C:\\Users\\vivar\\Desktop\\POS_24-04\\SalesAndInventory\\SalesAndInventory\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
-  </parameter>
-</parameters>
